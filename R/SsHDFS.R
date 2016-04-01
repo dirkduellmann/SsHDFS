@@ -10,7 +10,6 @@
 ##
 ## - interact via data frames as main data type
 ##  -> make it simple to use data.table, but do not require the package internally
-
 ## most of the package uses piped ssh execution to avoid local data copies
 ## remember: pipes need to be consumed & closed to avoid descriptor leaks
 ## -> the usual pattern would be eg:
@@ -36,7 +35,7 @@ ssh.pipe <- function(cmd, host="localhost", user="", open.mode="") {
 }
 
 
-#' scan a directory and return relevant meta data as data frame
+#' Scan a directory and return relevant meta data as data frame
 #'
 #' @param args arguments passed to hdfs dfs commandline
 #' @param host remote execution host
@@ -46,7 +45,6 @@ ssh.pipe <- function(cmd, host="localhost", user="", open.mode="") {
 #' @export
 #'
 #' @examples itmon <- hdfs.ls("-R /project/itmon")
-
 hdfs.ls <- function(args, host="analytix", user=""){
   p <- ssh.pipe(paste("hdfs dfs -ls", args), host = host, user = user)
   df <- read.table(p,skip=1, col.names=c("perm","links", "user", "group", "size", "date", "time", "path"))
@@ -66,14 +64,13 @@ hdfs.ls <- function(args, host="analytix", user=""){
 
 #' Report remote HDSF disk usage
 #'
-#' @param argument string passed to remote hdfs du command
-#' @param remote execution host
-#' @param remote execution user
-#'
+#' @param args argument string passed to remote hdfs du command
+#' @param host remote execution host
+#' @param user remote execution user
 #' @return return data frame with the raw and user disk volume per queried entity
 #' @export
 #'
-#' @examples hdsf.du("/project/awg")
+#' @examples hdfs.du("/project/awg")
 hdfs.du <- function(args, host="analytix", user="") {
   p <- ssh.pipe(paste("hdfs dfs -du -s", args), host = host, user = user)
   df <- read.table(p, col.names=c("user.size","raw.size", "path"))
@@ -83,22 +80,22 @@ hdfs.du <- function(args, host="analytix", user="") {
 
 #' Copy a file from the remote HDSF area to the current directory
 #'
-#' @param source pathname in HDFS
-#' @param remote execution host
-#' @param remote execution user
-#' @param local filename (defaults to remote file name)
+#' @param src.path source pathname in HDFS
+#' @param host remote execution host
+#' @param user remote execution user
+#' @param dest.path local filename (defaults to remote file name)
 #'
 #' @return nothing
 #' @export
 #'
-#' @examples hdfs.copyLocal("results.txt")
+#' @examples hdfs.copyToLocal("results.txt")
 hdfs.copyToLocal <- function(src.path, host="analytix", user="", dest.path=src.path)  {
   p <- ssh.pipe(paste("hdfs dfs -cat", src.path), host = host, user = user, open.mode="rb")
 
   ## open the pipe in binary mode
   dst <- file(dest.path,"wb")
 
-  ## do a copy from the pipe in 16 chunks
+  ## do a copy from the pipe in 16kB chunks
   buf.size <- 16*1024
 
   repeat {
@@ -112,7 +109,3 @@ hdfs.copyToLocal <- function(src.path, host="analytix", user="", dest.path=src.p
       }
   }
 }
-
-
-
-

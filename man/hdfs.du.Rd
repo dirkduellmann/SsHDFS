@@ -7,11 +7,11 @@
 hdfs.du(args, host = "analytix", user = "")
 }
 \arguments{
-\item{argument}{string passed to remote hdfs du command}
+\item{args}{argument string passed to remote hdfs du command}
 
-\item{remote}{execution host}
+\item{host}{remote execution host}
 
-\item{remote}{execution user}
+\item{user}{remote execution user}
 }
 \value{
 return data frame with the raw and user disk volume per queried entity
@@ -20,6 +20,6 @@ return data frame with the raw and user disk volume per queried entity
 Report remote HDSF disk usage
 }
 \examples{
-hdsf.du("/project/awg")
+hdfs.du("/project/awg")
 }
 

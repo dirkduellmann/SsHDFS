@@ -8,13 +8,13 @@ hdfs.copyToLocal(src.path, host = "analytix", user = "",
   dest.path = src.path)
 }
 \arguments{
-\item{source}{pathname in HDFS}
+\item{src.path}{source pathname in HDFS}
 
-\item{remote}{execution host}
+\item{host}{remote execution host}
 
-\item{remote}{execution user}
+\item{user}{remote execution user}
 
-\item{local}{filename (defaults to remote file name)}
+\item{dest.path}{local filename (defaults to remote file name)}
 }
 \value{
 nothing
@@ -23,6 +23,6 @@ nothing
 Copy a file from the remote HDSF area to the current directory
 }
 \examples{
-hdfs.copyLocal("results.txt")
+hdfs.copyToLocal("results.txt")
 }
 
