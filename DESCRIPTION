@@ -1,9 +1,10 @@
 Package: SsHDFS
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Access files on a remote HDFS cluster via ssh
+Version: 0.2.0
+Author: Dirk Duellmann
+Maintainer: Dirk Duellmann <dirk@dirkduellmann.com>
+Description: Wrapper around the most frequently used command for HDFS file access.
+License: GPL
 LazyData: TRUE
+RoxygenNote: 5.0.1
