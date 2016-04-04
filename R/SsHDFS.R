@@ -109,3 +109,19 @@ hdfs.copyToLocal <- function(src.path, host="analytix", user="", dest.path=src.p
       }
   }
 }
+
+#' send the content of a remote hdfs file via a pipe
+#'
+#' @param src.path HDFS location of the source file
+#' @param host remote host
+#' @param user remote user
+#'
+#' @return an open pipe to the data.
+#' @export
+#'
+#' @examples read.csv(hdfs.cat("input.txt"))
+hdfs.cat <- function(src.path, host="analytix", user="") {
+  ssh.pipe(paste("hdfs dfs -cat", src.path), host = host, user = user, open.mode="rb")
+}
+
+
