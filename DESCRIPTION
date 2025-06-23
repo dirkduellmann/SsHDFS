@@ -1,7 +1,7 @@
 Package: SsHDFS
 Type: Package
 Title: Access files on a remote HDFS cluster via ssh
-Version: 0.2.0
+Version: 0.2.1
 Author: Dirk Duellmann
 Maintainer: Dirk Duellmann <dirk@dirkduellmann.com>
 Description: Wrapper around the most frequently used command for HDFS file access.
